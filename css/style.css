@@ -321,11 +321,11 @@ a {
 }
 
 .nav-inner {
-  max-width: 1240px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 80px;
 }
 
@@ -376,8 +376,16 @@ a {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 40px;
   list-style: none;
+  margin-left: 60px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 
 .nav-links > li {
@@ -1108,8 +1116,7 @@ a {
   transition: var(--transition);
 }
 
-.property-card:hover .property-glass-box {
-}
+
 
 .property-glass-left {
   flex: 1;
@@ -1170,8 +1177,7 @@ a {
   align-items: center;
 }
 
-.why-us-content {
-}
+
 
 .why-us-subtitle {
   font-size: 26px;
@@ -2007,4 +2013,10 @@ a {
 
 #agents .service-card div[style*="color: var(--text-muted)"] {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.nav-logo-img {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
 }
