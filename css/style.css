@@ -926,7 +926,8 @@ a {
   transition: var(--transition);
 }
 
-.partner-logo-card img[src*="7.png"] {
+.partner-logo-card img[src*="7.png"],
+.partner-logo-card img[src*="1.png"] {
   filter: grayscale(1) invert(1) brightness(1.5);
   mix-blend-mode: screen;
 }
