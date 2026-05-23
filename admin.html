@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Innovative Realtors</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">IR</div>
+      <h1 class="login-title">Admin Panel</h1>
+      <p class="login-subtitle">Innovative Realtors — Secure Access</p>
+    </div>
+    <form class="login-form" id="login-form" novalidate>
+      <div>
+        <label for="login-pass">Password</label>
+        <input type="password" id="login-pass" name="password" placeholder="Enter admin password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="login-btn">🔐 Sign In to Dashboard</button>
+      <div class="login-error" id="login-error">❌ Incorrect password. Please try again.</div>
+    </form>
+    <p style="text-align:center;margin-top:20px;font-size:12px;color:var(--text-dim)">
+      Default password: <code style="color:var(--gold)">admin123</code>
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     APP SHELL
+════════════════════════════════════════════════════════ -->
+<div id="app" style="display:none">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────── -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">IR</div>
+      <div>
+        <div class="sidebar-logo-name">Innovative Realtors</div>
+        <div class="sidebar-logo-tag">Admin Panel</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+
+      <div class="nav-section-label">Content</div>
+      <div class="nav-item" data-page="properties">
+        <span class="nav-icon">🏠</span> Properties
+      </div>
+      <div class="nav-item" data-page="agents">
+        <span class="nav-icon">👤</span> Agents
+      </div>
+      <div class="nav-item" data-page="testimonials">
+        <span class="nav-icon">⭐</span> Testimonials
+      </div>
+      <div class="nav-item" data-page="inquiries">
+        <span class="nav-icon">📬</span> Inquiries
+        <span class="nav-badge" id="inquiries-badge" style="display:none">0</span>
+      </div>
+
+      <div class="nav-section-label">Customize</div>
+      <div class="nav-item" data-page="hero">
+        <span class="nav-icon">🖼</span> Hero Banner
+      </div>
+      <div class="nav-item" data-page="settings">
+        <span class="nav-icon">⚙️</span> Site Settings
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="index.html" target="_blank" class="sidebar-view-site">
+        🌐 View Public Site ↗
+      </a>
+      <div class="sidebar-logout" id="sidebar-logout">
+        🚪 Sign Out
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ─────────────────────────────────────────── -->
+  <main id="main">
+    <!-- Header -->
+    <header id="admin-header">
+      <div class="header-breadcrumb">
+        <span class="breadcrumb-home">Innovative Realtors</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Dashboard</span>
+      </div>
+      <div class="header-actions">
+        <span class="header-time" id="header-time"></span>
+        <a href="index.html" target="_blank" class="btn-secondary" style="padding:7px 14px;font-size:12px;text-decoration:none">🌐 View Site</a>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div id="content">
+
+      <!-- ══════════════════════════════════════════════
+           DASHBOARD PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page active" id="page-dashboard">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Welcome back! Here's an overview of your site content.</p>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon icon-gold">🏠</div>
+              <span class="stat-change up">Active</span>
+            </div>
+            <div class="stat-num" id="stat-properties">0</div>
+            <div class="stat-label">Total Properties</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon icon-blue">👤</div>
+              <span class="stat-change up">Team</span>
+            </div>
+            <div class="stat-num" id="stat-agents">0</div>
+            <div class="stat-label">Active Agents</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon icon-gold">⭐</div>
+              <span class="stat-change up">Published</span>
+            </div>
+            <div class="stat-num" id="stat-testimonials">0</div>
+            <div class="stat-label">Testimonials</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon icon-red">📬</div>
+              <span class="stat-change up" id="stat-unread" style="font-size:13px;font-weight:700;color:var(--danger)">0 new</span>
+            </div>
+            <div class="stat-num" id="stat-inquiries">0</div>
+            <div class="stat-label">Total Inquiries</div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px">
+          <button class="btn-primary" onclick="navigate('properties'); document.getElementById('btn-add-property').click()">➕ Add Property</button>
+          <button class="btn-secondary" onclick="navigate('inquiries')">📬 View Inquiries</button>
+          <button class="btn-secondary" onclick="navigate('hero')">🖼 Edit Hero</button>
+          <button class="btn-secondary" onclick="navigate('settings')">⚙️ Settings</button>
+        </div>
+
+        <!-- Recent Inquiries -->
+        <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:20px;align-items:start">
+          <div>
+            <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:14px">📬 Recent Inquiries</h3>
+            <div id="dashboard-recent-inquiries"></div>
+          </div>
+          <!-- Recent Properties -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <span class="table-card-title">🏠 Recent Properties</span>
+            </div>
+            <table class="data-table">
+              <thead><tr><th></th><th>Property</th><th>Location</th><th>Status</th><th>Price</th><th>Actions</th></tr></thead>
+              <tbody id="dashboard-recent-props"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           PROPERTIES PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-properties">
+        <h1 class="page-title">Properties</h1>
+        <p class="page-subtitle">Manage all property listings on your website.</p>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <span class="table-card-title">All Properties</span>
+            <div class="table-actions">
+              <input type="text" class="table-search" id="prop-search" placeholder="🔍 Search properties…">
+              <button class="btn-primary" id="btn-add-property">➕ Add Property</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title / Details</th>
+                  <th>Location</th>
+                  <th>Price / Status</th>
+                  <th>Featured</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="props-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           AGENTS PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-agents">
+        <h1 class="page-title">Agents</h1>
+        <p class="page-subtitle">Manage your real estate team.</p>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <span class="table-card-title">Our Team</span>
+            <div class="table-actions">
+              <input type="text" class="table-search" id="agent-search" placeholder="🔍 Search agents…">
+              <button class="btn-primary" id="btn-add-agent">➕ Add Agent</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead><tr><th>Photo</th><th>Name</th><th>Role</th><th>Phone</th><th>Email</th><th>Actions</th></tr></thead>
+              <tbody id="agents-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           TESTIMONIALS PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-testimonials">
+        <h1 class="page-title">Testimonials</h1>
+        <p class="page-subtitle">Manage client reviews displayed on your website.</p>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <span class="table-card-title">Client Reviews</span>
+            <div class="table-actions">
+              <button class="btn-primary" id="btn-add-testimonial">➕ Add Testimonial</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Role</th><th>Rating</th><th>Review</th><th>Actions</th></tr></thead>
+              <tbody id="testimonials-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           INQUIRIES PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-inquiries">
+        <h1 class="page-title">Inquiries & Leads</h1>
+        <p class="page-subtitle">Contact form submissions from potential clients.</p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+          <button class="btn-primary" id="btn-mark-all-read">✅ Mark All as Read</button>
+          <button class="btn-secondary" id="btn-filter-unread">🔴 Unread Only</button>
+          <button class="btn-danger" id="btn-clear-inquiries">🗑 Clear All</button>
+        </div>
+
+        <div id="inquiries-wrap">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           HERO BANNER PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-hero">
+        <h1 class="page-title">Hero Banner</h1>
+        <p class="page-subtitle">Customize the hero section of your homepage.</p>
+
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start">
+          <!-- Form -->
+          <div class="settings-card">
+            <div class="settings-card-title"><span>🖼</span> Hero Content</div>
+            <form id="hero-form">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div class="field-group">
+                  <label>Main Headline</label>
+                  <input type="text" id="hero-headline" name="headline" placeholder="Find Your Perfect Luxury Home">
+                </div>
+                <div class="field-group">
+                  <label>Subheadline / Description</label>
+                  <textarea id="hero-subheadline" name="subheadline" rows="3" placeholder="Your tagline here…"></textarea>
+                </div>
+                <div class="field-group">
+                  <label>Background Image URL</label>
+                  <input type="text" id="hero-bg-url" name="bgImage" placeholder="assets/hero_bg.png or https://…">
+                  <span class="hint">💡 Use a relative path (e.g. assets/hero_bg.png) or a full image URL.</span>
+                </div>
+                <button type="submit" class="btn-primary">💾 Save Hero Banner</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Preview -->
+          <div>
+            <div class="settings-card-title" style="font-size:12px;color:var(--text-muted);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase">Live Preview</div>
+            <div class="hero-preview">
+              <img class="hero-preview-img" id="hero-preview-img" src="" alt="" onerror="this.style.display='none'">
+              <div class="hero-preview-text">
+                <div class="hero-preview-title" id="hero-preview-title"></div>
+                <div class="hero-preview-sub" id="hero-preview-sub"></div>
+              </div>
+            </div>
+            <div class="settings-card" style="margin-top:16px">
+              <div class="settings-card-title"><span>💡</span> Tips</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text-muted)">
+                <li>• Use high-resolution images (min 1920×1080)</li>
+                <li>• Keep headlines under 60 characters</li>
+                <li>• Dark images work best for text readability</li>
+                <li>• Supported: PNG, JPG, WebP formats</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           SETTINGS PAGE
+      ══════════════════════════════════════════════ -->
+      <div class="page" id="page-settings">
+        <h1 class="page-title">Site Settings</h1>
+        <p class="page-subtitle">Customize your website's global information and branding.</p>
+
+        <form id="settings-form">
+          <div class="settings-grid">
+            <!-- Company Info -->
+            <div class="settings-card">
+              <div class="settings-card-title"><span>🏢</span> Company Information</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="field-group">
+                  <label>Company Name</label>
+                  <input type="text" name="companyName" placeholder="Innovative Realtors">
+                </div>
+                <div class="field-group">
+                  <label>Tagline</label>
+                  <input type="text" name="tagline" placeholder="Where Dreams Find Their Address">
+                </div>
+                <div class="field-group">
+                  <label>Phone</label>
+                  <input type="text" name="phone" placeholder="+1 (555) 888-9900">
+                </div>
+                <div class="field-group">
+                  <label>Email</label>
+                  <input type="email" name="email" placeholder="info@company.com">
+                </div>
+                <div class="field-group">
+                  <label>Address</label>
+                  <input type="text" name="address" placeholder="450 Park Avenue, New York">
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="settings-card">
+              <div class="settings-card-title"><span>📊</span> Homepage Statistics</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="field-group">
+                  <label>Years of Experience</label>
+                  <input type="text" name="yearsExp" placeholder="15+">
+                </div>
+                <div class="field-group">
+                  <label>Properties Sold</label>
+                  <input type="text" name="propertiesSold" placeholder="2,400+">
+                </div>
+                <div class="field-group">
+                  <label>Happy Clients</label>
+                  <input type="text" name="happyClients" placeholder="1,800+">
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="settings-card">
+              <div class="settings-card-title"><span>📱</span> Social Media Links</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="field-group">
+                  <label>Facebook URL</label>
+                  <input type="url" name="facebook" placeholder="https://facebook.com/…">
+                </div>
+                <div class="field-group">
+                  <label>Instagram URL</label>
+                  <input type="url" name="instagram" placeholder="https://instagram.com/…">
+                </div>
+                <div class="field-group">
+                  <label>Twitter / X URL</label>
+                  <input type="url" name="twitter" placeholder="https://twitter.com/…">
+                </div>
+                <div class="field-group">
+                  <label>LinkedIn URL</label>
+                  <input type="url" name="linkedin" placeholder="https://linkedin.com/…">
+                </div>
+              </div>
+            </div>
+
+            <!-- Branding & Security -->
+            <div class="settings-card">
+              <div class="settings-card-title"><span>🎨</span> Branding & Security</div>
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div class="field-group">
+                  <label>Accent Color (Gold)</label>
+                  <div class="color-picker-wrap">
+                    <input type="color" id="accent-color-input" name="accentColor" value="#c9a84c">
+                    <div class="color-preview" id="accent-color-preview">#c9a84c</div>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label>Admin Password</label>
+                  <input type="password" name="adminPassword" placeholder="New password">
+                  <span class="hint">Leave blank to keep current password</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+            <button type="submit" class="btn-primary">💾 Save All Settings</button>
+            <button type="button" class="btn-danger" id="btn-reset-data">⚠️ Reset All Data to Defaults</button>
+          </div>
+        </form>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /app -->
+
+<!-- ════════════════════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════════════════ -->
+
+<!-- Property Modal -->
+<div class="modal-overlay" id="prop-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="prop-modal-title">Add New Property</h2>
+      <button class="modal-close-btn modal-close-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="prop-form" novalidate>
+        <div class="form-grid">
+          <div class="field-group form-full">
+            <label>Property Title *</label>
+            <input type="text" name="title" placeholder="e.g. The Sunset Villa" required>
+          </div>
+          <div class="field-group">
+            <label>Property Type *</label>
+            <select name="type" required>
+              <option value="">Select type…</option>
+              <option>Villa</option><option>Penthouse</option>
+              <option>House</option><option>Condo</option><option>Apartment</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Status *</label>
+            <select name="status" required>
+              <option value="For Sale">For Sale</option>
+              <option value="For Rent">For Rent</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Region *</label>
+            <select name="region" required>
+              <option value="India">India</option>
+              <option value="Dubai">Dubai</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Price ($) *</label>
+            <input type="number" name="price" placeholder="4250000" min="0" required>
+          </div>
+          <div class="field-group">
+            <label>Location *</label>
+            <input type="text" name="location" placeholder="Beverly Hills, CA" required>
+          </div>
+          <div class="field-group">
+            <label>Bedrooms</label>
+            <input type="number" name="bedrooms" placeholder="5" min="0" value="3">
+          </div>
+          <div class="field-group">
+            <label>Bathrooms</label>
+            <input type="number" name="bathrooms" placeholder="4" min="0" value="2">
+          </div>
+          <div class="field-group">
+            <label>Area (sq ft)</label>
+            <input type="number" name="area" placeholder="6200" min="0" value="2000">
+          </div>
+          <div class="field-group form-full">
+            <label>Image URL or Path</label>
+            <input type="text" name="image" placeholder="assets/property1.png or https://…">
+            <span class="hint">💡 Use a relative path for local images, or a full URL.</span>
+          </div>
+          <div class="field-group form-full">
+            <label>Description</label>
+            <textarea name="description" rows="4" placeholder="Describe this property…"></textarea>
+          </div>
+          <div class="field-group form-full">
+            <div class="toggle-wrap">
+              <label class="toggle-switch">
+                <input type="checkbox" name="featured">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">Mark as Featured (appears with ★ badge)</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary modal-cancel-btn">Cancel</button>
+      <button class="btn-primary" onclick="document.getElementById('prop-form').requestSubmit()">💾 Save Property</button>
+    </div>
+  </div>
+</div>
+
+<!-- Agent Modal -->
+<div class="modal-overlay" id="agent-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="agent-modal-title">Add New Agent</h2>
+      <button class="modal-close-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="agent-form" novalidate>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" placeholder="e.g. Richard Sterling" required>
+          </div>
+          <div class="field-group">
+            <label>Role / Title *</label>
+            <input type="text" name="role" placeholder="Senior Luxury Specialist" required>
+          </div>
+          <div class="field-group">
+            <label>Phone</label>
+            <input type="tel" name="phone" placeholder="+1 (555) 201-4400">
+          </div>
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="agent@company.com">
+          </div>
+          <div class="field-group form-full">
+            <label>Photo URL or Path</label>
+            <input type="text" name="image" placeholder="assets/agent1.png or https://…">
+          </div>
+          <div class="field-group form-full">
+            <label>Specialties</label>
+            <input type="text" name="specialties" placeholder="Luxury Villas, Penthouses, Investment">
+          </div>
+          <div class="field-group form-full">
+            <label>Bio</label>
+            <textarea name="bio" rows="4" placeholder="Short bio about this agent…"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary modal-cancel-btn">Cancel</button>
+      <button class="btn-primary" onclick="document.getElementById('agent-form').requestSubmit()">💾 Save Agent</button>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonial Modal -->
+<div class="modal-overlay" id="test-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="test-modal-title">Add Testimonial</h2>
+      <button class="modal-close-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="test-form" novalidate>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>Client Name *</label>
+            <input type="text" name="name" placeholder="e.g. James & Linda Carter" required>
+          </div>
+          <div class="field-group">
+            <label>Role / Location</label>
+            <input type="text" name="role" placeholder="Homeowners, Beverly Hills">
+          </div>
+          <div class="field-group form-full">
+            <label>Review / Quote *</label>
+            <textarea name="quote" rows="4" placeholder="Write the client's testimonial here…" required></textarea>
+          </div>
+          <div class="field-group">
+            <label>Avatar Emoji</label>
+            <input type="text" name="avatar" placeholder="👤 or 🏠 etc." maxlength="4">
+          </div>
+          <div class="field-group">
+            <label>Rating</label>
+            <div class="star-picker">
+              <span data-star="1">★</span>
+              <span data-star="2">★</span>
+              <span data-star="3">★</span>
+              <span data-star="4">★</span>
+              <span data-star="5" class="active">★</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary modal-cancel-btn">Cancel</button>
+      <button class="btn-primary" onclick="document.getElementById('test-form').requestSubmit()">💾 Save Testimonial</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <h3 class="confirm-title" id="confirm-title">Are you sure?</h3>
+    <p class="confirm-msg" id="confirm-msg">This action cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn-secondary" id="confirm-no">Cancel</button>
+      <button class="btn-danger" id="confirm-yes">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
