@@ -857,58 +857,74 @@ a {
   color: var(--gold-dark);
 }
 
-/* ── Trusted Developer Partners logo slider ─────────────── */
-.partners-slider-section {
-  background: #020617;
+/* ── Trusted Developer Partners logo slider ──────────────── */
+.partners-section {
   padding: 70px 0;
-  overflow: hidden;
-  position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: #020617; /* dark bg */
+  color: #fff;
 }
 
-.partners-slider-title {
+.partners-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+}
+
+.partners-eyebrow {
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 24px;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  color: #d8912a;
+  margin-bottom: 8px;
 }
 
-.partners-slider-container {
-  display: flex;
-  overflow-x: hidden;
+.partners-head h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.partners-underline {
+  display: inline-block;
+  width: 70px;
+  height: 3px;
+  background: #d8912a;
+  border-radius: 999px;
+  margin: 8px 0 14px;
+}
+
+.partners-sub {
+  max-width: 520px;
+  margin: 0 auto 32px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e5e5e5;
+}
+
+.partners-slider-wrapper {
   position: relative;
-  width: 100%;
 }
 
-.partners-track {
+.partners-slider {
   display: flex;
-  gap: 20px;
-  width: max-content;
-  animation: scrollTrack 30s linear infinite;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 14px 6px 4px;
+  scrollbar-width: none;
 }
 
-@keyframes scrollTrack {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.partners-slider::-webkit-scrollbar {
+  display: none;
 }
 
-.partner-logo-card {
-  width: 200px;
-  height: 120px;
+/* 🔥 Updated bigger card */
+.partner-card {
+  flex: 0 0 200px;
+  max-width: 200px;
   background: #0a0f1a;
   border-radius: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
   letter-spacing: 0.5px;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 20px 45px rgba(0, 0, 0, 0.65);
   transition: var(--transition);

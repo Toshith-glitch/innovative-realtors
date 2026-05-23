@@ -372,3 +372,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+// Slider functionality for Developer Partners
+(function () {
+  const slider = document.getElementById('partnersSlider');
+  if (!slider) return;
+
+  const leftBtn = document.querySelector('.partners-arrow-left');
+  const rightBtn = document.querySelector('.partners-arrow-right');
+
+  const scrollAmount = () => slider.clientWidth * 0.7;
+
+  if (leftBtn) {
+    leftBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  if (rightBtn) {
+    rightBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+  }
+})();
