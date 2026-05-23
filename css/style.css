@@ -921,10 +921,14 @@ a {
   height: 100%;
   object-fit: contain;
   padding: 10px;
-  filter: grayscale(1) invert(1) brightness(1.5);
-  mix-blend-mode: screen;
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255,255,255,0.1));
   opacity: 0.85;
   transition: var(--transition);
+}
+
+.partner-logo-card img[src*="7.png"] {
+  filter: grayscale(1) invert(1) brightness(1.5);
+  mix-blend-mode: screen;
 }
 
 .partner-logo-card:hover {
