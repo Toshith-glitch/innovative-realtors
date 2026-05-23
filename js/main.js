@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inject Hero Content
   const heroTitle = document.getElementById('hero-title-text');
   if (heroTitle && hero.headline) {
-    heroTitle.innerHTML = hero.headline.replace(/(profitable investments|luxury|dream|perfect)/gi, '<span>$&</span>');
+    heroTitle.innerHTML = hero.headline.replace(/(profitable investments|luxury|dreams?|perfect)/gi, '<span>$&</span>');
   }
   const heroSub = document.getElementById('hero-sub-text');
   if (heroSub && hero.subheadline) {
