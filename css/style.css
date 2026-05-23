@@ -927,7 +927,7 @@ a {
 }
 
 .partner-logo-card img[src*="7.png"],
-.partner-logo-card img[src*="1.png"] {
+.partner-logo-card img[src*="samana.jpg"] {
   filter: grayscale(1) invert(1) brightness(1.5);
   mix-blend-mode: screen;
 }
