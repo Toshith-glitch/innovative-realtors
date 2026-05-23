@@ -923,41 +923,27 @@ a {
 .partner-card {
   flex: 0 0 200px;
   max-width: 200px;
-  background: #0a0f1a;
+  height: 120px;
+  background: #ffffff;
   border-radius: 22px;
-  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 20px 45px rgba(0, 0, 0, 0.65);
-  transition: var(--transition);
-  padding: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
+  padding: 10px;
 }
 
-.partner-logo-card img {
+.partner-card img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 10px;
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255,255,255,0.1));
-  opacity: 0.85;
-  transition: var(--transition);
 }
 
-.partner-logo-card img[src*="7.png"] {
-  filter: grayscale(1) invert(1) brightness(1.5);
-  mix-blend-mode: screen;
-}
-
-.partner-logo-card:hover {
+.partner-card:hover {
   transform: translateY(-5px);
-  background: #101725;
   box-shadow: 0 0 0 1px #d8912a55, 0 26px 55px rgba(0, 0, 0, 0.85);
-  color: var(--gold);
-}
-
-.partner-logo-card:hover img {
-  opacity: 1;
-  filter: drop-shadow(0 0 12px rgba(216, 145, 42, 0.5));
-  mix-blend-mode: normal;
 }
 
 /* ── Our Values ─────────────────────────────────────────── */
